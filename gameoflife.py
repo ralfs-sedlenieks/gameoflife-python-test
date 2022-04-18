@@ -32,9 +32,10 @@ def calculate_frame():
             cur_j = cur_j + multiplier
             square.fill(BLACK if cur_col == 0 else WHITE)
             cur_px = pygame.Rect(cur_i, cur_j, multiplier, multiplier)
-            pygame.display.update(display_screen.blit(square, cur_px))
+            display_screen.blit(square, cur_px)
             update_cell(i, j)
         cur_j = 0 - multiplier
+    pygame.display.flip()
 
 
 def update_cell(x, y):
@@ -97,11 +98,25 @@ if __name__ == "__main__":
 
     random_matrix = numpy.random.randint(0, 2, (height, width))
 
+    # TODO: config param
+    mask_times = 2
+
+    for n in range(mask_times):
+        mask = numpy.random.randint(0, 2, (height, width))
+        for h in range(height):
+            for w in range(width):
+                if random_matrix[h][w] and mask[h][w]:
+                    random_matrix[h][w] = 0
+
     pygame.init()
+
     display_screen = pygame.display.set_mode((window_height, window_width))
     pygame.display.set_caption("gameoflife.py")
 
-    square = pygame.Surface((multiplier, multiplier))
+    icon = pygame.image.load("icon.png").convert()
+    pygame.display.set_icon(icon)
+
+    square = pygame.Surface((multiplier, multiplier)).convert()
     calculate_frame()
 
     while 1:
