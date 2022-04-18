@@ -99,7 +99,7 @@ if __name__ == "__main__":
     random_matrix = numpy.random.randint(0, 2, (height, width))
 
     # TODO: config param
-    mask_times = 2
+    mask_times = 3
 
     for n in range(mask_times):
         mask = numpy.random.randint(0, 2, (height, width))
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     pygame.init()
 
     display_screen = pygame.display.set_mode((window_height, window_width))
-    pygame.display.set_caption("gameoflife.py")
+    pygame.display.set_caption("gameoflife")
 
     icon = pygame.image.load("icon.png").convert()
     pygame.display.set_icon(icon)
