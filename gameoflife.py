@@ -22,6 +22,15 @@ def process_key_event(key):
         PAUSED = not PAUSED
 
 
+def process_mouse_event(pos):
+    matrix_pos = tuple(x//multiplier for x in pos)
+    random_matrix[matrix_pos] = not random_matrix[matrix_pos]
+    square.fill(BLACK if random_matrix[matrix_pos] == 0 else WHITE)
+    cur_px = pygame.Rect(matrix_pos[0]*multiplier, matrix_pos[1]*multiplier, multiplier, multiplier)
+    display_screen.blit(square, cur_px)
+    pygame.display.flip()
+
+
 def calculate_frame():
     cur_i = 0 - multiplier
     cur_j = 0 - multiplier
@@ -165,6 +174,8 @@ if __name__ == "__main__":
                 sys.exit(0)
             if event.type == pygame.KEYDOWN:
                 process_key_event(event.key)
+            if event.type == pygame.MOUSEBUTTONUP:
+                process_mouse_event(pygame.mouse.get_pos())
 
         if not PAUSED:
             calculate_frame()
